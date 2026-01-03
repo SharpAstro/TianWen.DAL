@@ -12,6 +12,7 @@
     <PackageTags>Astronomy</PackageTags>
     <RepositoryUrl>https://github.com/SharpAstro/TianWen.DAL</RepositoryUrl>
     <PackageProjectUrl>https://github.com/SharpAstro/TianWen.DAL</PackageProjectUrl>
+    <Description>Defines a vendor-neutral access layer for consumer astronomical devices like ZWO, SvBony, etc.</Description>
   </PropertyGroup>
 
   <ItemGroup>
