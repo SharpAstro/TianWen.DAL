@@ -1,0 +1,16 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <RootNamespace>TianWen.DAL</RootNamespace>
+    <AssemblyName>TianWen.DAL</AssemblyName>
+    <PackageLicenseFile>LICENSE</PackageLicenseFile>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageId>TianWen.DAL</PackageId>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageTags>Astronomy</PackageTags>
+    <RepositoryUrl>https://github.com/SharpAstro/TianWen.DAL</RepositoryUrl>
+    <PackageProjectUrl>https://github.com/SharpAstro/TianWen.DAL</PackageProjectUrl>
+  </PropertyGroup>
+
+</Project>
