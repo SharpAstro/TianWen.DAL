@@ -6,6 +6,7 @@
     <AssemblyName>TianWen.DAL</AssemblyName>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <DebugType>embedded</DebugType>
     <PackageId>TianWen.DAL</PackageId>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <PackageTags>Astronomy</PackageTags>
