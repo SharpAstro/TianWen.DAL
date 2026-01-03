@@ -13,4 +13,8 @@
     <PackageProjectUrl>https://github.com/SharpAstro/TianWen.DAL</PackageProjectUrl>
   </PropertyGroup>
 
+  <ItemGroup>
+    <None Include="LICENSE" PackagePath="" Pack="True" />
+    <None Include="README.md" PackagePath="" Pack="true" />
+  </ItemGroup>
 </Project>
