@@ -3,11 +3,10 @@ using System.Collections.Generic;
 
 namespace TianWen.DAL
 {
-    public abstract class NativeDeviceIteratorBase<TDeviceInfo, TSerialNumber> : INativeDeviceIterator<INativeDeviceInfo<TSerialNumber>, TSerialNumber>
-        where TDeviceInfo : struct, INativeDeviceInfo<TSerialNumber>
-        where TSerialNumber : struct
+    public abstract class NativeDeviceIteratorBase<TDeviceInfo> : INativeDeviceIterator<TDeviceInfo>
+        where TDeviceInfo : struct, INativeDeviceInfo
     {
-        public IEnumerator<(int DeviceId, INativeDeviceInfo<TSerialNumber> DeviceInfo)> GetEnumerator()
+        public IEnumerator<(int DeviceId, TDeviceInfo DeviceInfo)> GetEnumerator()
         {
             var count = DeviceCount();
 

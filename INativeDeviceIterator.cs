@@ -2,9 +2,8 @@
 
 namespace TianWen.DAL
 {
-    public interface INativeDeviceIterator<TDeviceInfo, TSerialNumber> : IEnumerable<(int DeviceId, TDeviceInfo DeviceInfo)>
-        where TDeviceInfo : INativeDeviceInfo<TSerialNumber>
-        where TSerialNumber : struct
+    public interface INativeDeviceIterator<TDeviceInfo> : IEnumerable<(int DeviceId, TDeviceInfo DeviceInfo)>
+        where TDeviceInfo : INativeDeviceInfo
     {
     }
 }

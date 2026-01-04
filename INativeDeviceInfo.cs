@@ -2,8 +2,7 @@
 
 namespace TianWen.DAL
 {
-    public interface INativeDeviceInfo<TSerialNumber>
-        where TSerialNumber : struct
+    public interface INativeDeviceInfo
     {
         int ID { get; }
 
@@ -18,7 +17,7 @@ namespace TianWen.DAL
 
         bool Close();
 
-        TSerialNumber? SerialNumber { get; }
+        string SerialNumber { get; }
 
         bool IsUSB3Device { get; }
     }
