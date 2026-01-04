@@ -39,5 +39,11 @@ namespace TianWen.DAL
         IReadOnlyList<PixelDataFormat> SupportedPixelDataFormats { get; }
 
         BayerPattern BayerPattern { get; }
+
+        bool TryGetControlRange(CMOSControlType ctrlType, out int min, out int max);
+
+        CMOSErrorCode GetControlValue(CMOSControlType controlType, out int value, out bool isAuto);
+
+        CMOSErrorCode SetControlValue(CMOSControlType controlType, int value, bool isAuto = false);
     }
 }
