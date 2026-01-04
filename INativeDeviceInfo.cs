@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace TianWen.DAL
+﻿namespace TianWen.DAL
 {
     public interface INativeDeviceInfo
     {
