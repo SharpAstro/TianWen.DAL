@@ -2,7 +2,6 @@
 
 namespace TianWen.DAL
 {
-
     public interface INativeCMOSDeviceInfo : INativeDeviceInfo
     {
         /// <summary>
