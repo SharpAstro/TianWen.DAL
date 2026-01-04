@@ -6,23 +6,23 @@ namespace TianWen.DAL
     public abstract class NativeDeviceIteratorBase<TDeviceInfo> : INativeDeviceIterator<TDeviceInfo>
         where TDeviceInfo : struct, INativeDeviceInfo
     {
-        public IEnumerator<(int DeviceId, TDeviceInfo DeviceInfo)> GetEnumerator()
+        public IEnumerator<TDeviceInfo> GetEnumerator()
         {
             var count = DeviceCount();
 
             for (var index = 0; index < count; index++)
             {
-                var (id, info) = GetId(index);
-                if (id.HasValue && info.HasValue)
+                var info = GetDeviceInfo(index);
+                if (info.HasValue)
                 {
-                    yield return (id.Value, info.Value);
+                    yield return info.Value;
                 }
             }
         }
 
         protected abstract int DeviceCount();
 
-        protected abstract (int? DeviceId, TDeviceInfo? DeviceInfo) GetId(int index);
+        protected abstract TDeviceInfo? GetDeviceInfo(int index);
 
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
     }

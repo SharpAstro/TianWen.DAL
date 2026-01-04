@@ -28,11 +28,15 @@ namespace TianWen.DAL
 
         bool HasMechanicalShutter { get; }
 
+        bool HasCooler { get; }
+
         bool HasST4Port { get; }
 
         double ElectronPerADU { get; }
 
         IReadOnlyList<int> SupportedBins { get; }
+
+        IReadOnlyList<PixelDataFormat> SupportedPixelDataFormats { get; }
 
         BayerPattern BayerPattern { get; }
     }
