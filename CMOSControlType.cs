@@ -1,5 +1,6 @@
 ﻿namespace TianWen.DAL
 {
+
     public enum CMOSControlType
     {
         Gain = 1,
