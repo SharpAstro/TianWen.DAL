@@ -40,7 +40,15 @@ public static class SensorModelNames
         ["asi715"] = "IMX715",
         ["asi220"] = "IMX662", // ASI220 shares IMX662
         ["asi2400"] = "IMX410",
-        // QHY (add as models are confirmed)
+        // QHY
+        ["qhy183"] = "IMX183",
+        ["qhy268"] = "IMX571",
+        ["qhy294"] = "IMX492",
+        ["qhy410"] = "IMX410",
+        ["qhy461"] = "IMX461",
+        ["qhy533"] = "IMX533",
+        ["qhy585"] = "IMX585",
+        ["qhy600"] = "IMX455",
     };
 
     /// <summary>
