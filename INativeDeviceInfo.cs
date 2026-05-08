@@ -18,5 +18,12 @@
         string SerialNumber { get; }
 
         bool IsUSB3Device { get; }
+
+        /// <summary>
+        /// Sensor die model name, e.g. "IMX533" or "KAF-8300".
+        /// Returns null when the model cannot be determined from the camera name.
+        /// Default implementation returns null — SDK wrappers override this.
+        /// </summary>
+        string? SensorModel => null;
     }
 }
