@@ -20,7 +20,4 @@
     <None Include="README.md" PackagePath="" Pack="true" />
   </ItemGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="10.0.200" PrivateAssets="All" />
-  </ItemGroup>
 </Project>
