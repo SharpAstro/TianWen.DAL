@@ -15,7 +15,12 @@
 
         bool Close();
 
-        string SerialNumber { get; }
+        /// <summary>
+        /// The factory serial, or null when the device has none programmed. A vendor SDK reports a missing
+        /// serial as an error code or as an all-zero pattern, and both are surfaced as null rather than as
+        /// a string a caller could mistake for an identity.
+        /// </summary>
+        string? SerialNumber { get; }
 
         bool IsUSB3Device { get; }
 
