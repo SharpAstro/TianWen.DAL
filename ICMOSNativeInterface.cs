@@ -145,5 +145,47 @@ namespace TianWen.DAL
             startX = startY = width = height = 0;
             return false;
         }
+
+        /// <summary>
+        /// True when the white balance has a GREEN channel of its own
+        /// (<see cref="CMOSControlType.WB_G"/>) rather than red and blue against an implicit green.
+        /// </summary>
+        /// <remarks>
+        /// Not cosmetic. A caller setting a neutral white balance has to write every channel the
+        /// body has, and writing two of three leaves the third wherever it was last put.
+        /// </remarks>
+        bool HasThreeChannelWhiteBalance => false;
+
+        /// <summary>
+        /// The white balance scale this body uses: its bounds and, crucially, the value on it that
+        /// applies NO gain. False when the body has no white balance at all, which is every mono
+        /// camera.
+        /// </summary>
+        /// <remarks>
+        /// <para><b>Neutral is not the same number on two vendors, and it is not the SDK's declared
+        /// DEFAULT either.</b> ZWO's channels run about [1, 99] with unity at the midpoint 50;
+        /// Player One's run [-1200, 1200] with unity at 0. Both are measured rather than assumed: a
+        /// ZWO frame captured at 65 carries a red gain of 1.312 in its pixels, which is 65/50, and a
+        /// Player One frame captured at 0 measures exactly 1.000. A vendor's default is a third
+        /// thing again, being a pleasant daylight balance rather than no balance at all.</para>
+        /// <para><b>This exists because one constant was being written to every vendor.</b> The
+        /// driver set 50 on connect whatever the body was, which is unity on a ZWO and a red and
+        /// blue lift on a Player One. It went unnoticed because NO header records a white balance:
+        /// it is baked into the pixels, so the only way to see it after the fact is to measure the
+        /// per-photosite quantisation step, and the only way to know it in advance is to ask the
+        /// camera. This is the asking.</para>
+        /// <para>A white balance is a digital gain on the RAW stream, so it scales the pedestal a
+        /// dark frame has to match. Getting it wrong does not merely tint a preview; it makes a
+        /// calibration library disagree with the lights it was shot for.</para>
+        /// </remarks>
+        /// <param name="min">Lowest settable value.</param>
+        /// <param name="max">Highest settable value.</param>
+        /// <param name="neutral">The value applying no gain, which a caller writes to leave the raw
+        /// stream alone.</param>
+        bool TryGetWhiteBalanceRange(out int min, out int max, out int neutral)
+        {
+            min = max = neutral = 0;
+            return false;
+        }
     }
 }
