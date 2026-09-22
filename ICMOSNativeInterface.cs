@@ -32,6 +32,30 @@ namespace TianWen.DAL
         int BitDepth { get; }
 
         /// <summary>
+        /// Whether a 16-bit frame arrives LEFT-ALIGNED in its container, so a converter of
+        /// <see cref="BitDepth"/> bits spans 0..65535 in steps of 2^(16 - BitDepth) rather than
+        /// 0..2^BitDepth - 1.
+        /// </summary>
+        /// <remarks>
+        /// <para><see cref="BitDepth"/> says how many LEVELS the converter produces; it does not say
+        /// where they sit in a 16-bit word, and the two vendors disagree. Measured 2026-09-23 over
+        /// the archive: a Player One IMX585 frame has every value a multiple of 16 and saturates near
+        /// 65520, while a ZWO IMX533 frame carries its native 14-bit values with no shift at all.
+        /// Both are 16-bit buffers from a sub-16-bit converter, so nothing in the depth distinguishes
+        /// them and a caller deriving full scale from it is right for one vendor and 16x wrong for the
+        /// other.</para>
+        /// <para>This describes what the SDK HANDS OVER, not a preference: a consumer passes the
+        /// buffer through unchanged either way, which is what keeps frames comparable with the same
+        /// camera's older captures. It only decides what saturation to DECLARE.</para>
+        /// <para>Default false, the native-scale reading every consumer assumed before this existed,
+        /// so an implementation that has not been taught it behaves exactly as it did.</para>
+        /// <para>Beware the companion: where this is true, one delivered ADU is 2^(16 - BitDepth)
+        /// native units, so anything pairing a full-scale value with electrons-per-ADU has to take
+        /// both from the same convention or full-well capacity gains the same factor.</para>
+        /// </remarks>
+        bool DeliversContainerScaledPixels => false;
+
+        /// <summary>
         /// Pixel size in micro-meters.
         /// </summary>
         double PixelSize { get; }
