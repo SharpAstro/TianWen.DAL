@@ -231,6 +231,23 @@ namespace TianWen.DAL
 
         CMOSErrorCode SetROIFormat(int width, int height, int bin, PixelDataFormat pixelDataFormat);
 
+        /// <summary>
+        /// The steps a window keeps, in binned photosites: its width a multiple of
+        /// <paramref name="widthStep"/> and its height of <paramref name="heightStep"/>, its origin a
+        /// multiple of <paramref name="originStepX"/> and <paramref name="originStepY"/>. A window off
+        /// these steps is refused by <see cref="SetROIFormat"/> or <see cref="SetStartPosition"/>.
+        /// </summary>
+        /// <remarks>
+        /// <para>These are the SDK's own rules. A colour sensor's Bayer phase needs an even origin on
+        /// top, which is the caller's to add, since it knows the sensor and the SDK does not care.</para>
+        /// <para>Default 1 throughout, no rule, which is what every caller assumed before this
+        /// existed.</para>
+        /// </remarks>
+        void GetRoiSteps(out int widthStep, out int heightStep, out int originStepX, out int originStepY)
+        {
+            widthStep = heightStep = originStepX = originStepY = 1;
+        }
+
         // ---- The frame ----------------------------------------------------------------------
 
         CMOSErrorCode GetDataAfterExposure(IntPtr buffer, int bufferSize);
