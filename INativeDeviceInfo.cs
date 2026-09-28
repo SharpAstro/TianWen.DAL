@@ -1,4 +1,4 @@
-﻿namespace TianWen.DAL
+namespace TianWen.DAL
 {
     public interface INativeDeviceInfo
     {
@@ -11,8 +11,21 @@
         /// </summary>
         string CustomId { get; }
 
+        /// <summary>
+        /// Opens the device for one more holder. COUNTED: the native session opens for the first holder only, and every
+        /// later open shares it (<see cref="SharedSessions{TKey}"/>).
+        /// </summary>
+        /// <remarks>
+        /// An enumeration opens a device to read its serial, and a connect opens each device to compare, while a driver may
+        /// hold the same device open; an uncounted open that re-initialises it, or a close that ends its session, disturbs
+        /// that driver (a streaming ASI462MC failed CameraClosed on a listing, 2026-09-28).
+        /// </remarks>
         bool Open();
 
+        /// <summary>
+        /// Closes the device for one holder. COUNTED: the native session closes when its last holder closes, never under
+        /// another (<see cref="SharedSessions{TKey}"/>).
+        /// </summary>
         bool Close();
 
         /// <summary>
