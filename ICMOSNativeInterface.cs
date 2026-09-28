@@ -234,5 +234,65 @@ namespace TianWen.DAL
         // ---- The frame ----------------------------------------------------------------------
 
         CMOSErrorCode GetDataAfterExposure(IntPtr buffer, int bufferSize);
+
+        // ---- Video --------------------------------------------------------------------------
+
+        /// <summary>
+        /// True when the body STREAMS frames: <see cref="StartVideoCapture"/> once, then one
+        /// <see cref="GetVideoData"/> per frame, rather than one exposure started, awaited and
+        /// downloaded at a time.
+        /// </summary>
+        /// <remarks>
+        /// <para>A stream is what makes a live view fast. A single exposure pays for its start, its
+        /// readout and its download on every frame: driven that way, an ASI462MC at a 1 ms exposure
+        /// gave 5.8 frames a second at full frame and 10.7 through a 640 x 320 window, where the body
+        /// streams many times faster.</para>
+        /// <para>Default false, with every video member below refusing, so an implementation that has
+        /// not been taught video is driven one exposure at a time, exactly as before this existed.</para>
+        /// <para>A body streams OR exposes, never both: a caller stops a stream before it starts an
+        /// exposure, and a stream's window, format and controls are the ones set when it starts
+        /// (<see cref="SetROIFormat"/>, <see cref="SetStartPosition"/>, <see cref="SetControlValue"/>).</para>
+        /// </remarks>
+        bool CanVideoCapture => false;
+
+        /// <summary>
+        /// True when <see cref="SetStartPosition"/> moves the window WHILE a stream runs, with no
+        /// restart: the fast recentring actuator of a planetary live view.
+        /// </summary>
+        /// <remarks>
+        /// The window's SIZE cannot change mid-stream on any body: a caller stops the stream, calls
+        /// <see cref="SetROIFormat"/>, and starts it again.
+        /// </remarks>
+        bool CanPanRoiWhileStreaming => false;
+
+        /// <summary>Starts streaming with the window, format and controls set now.</summary>
+        CMOSErrorCode StartVideoCapture() => CMOSErrorCode.GeneralError;
+
+        /// <summary>Stops the stream <see cref="StartVideoCapture"/> started.</summary>
+        CMOSErrorCode StopVideoCapture() => CMOSErrorCode.GeneralError;
+
+        /// <summary>
+        /// Waits at most <paramref name="waitMs"/> for the stream's next frame and copies it into
+        /// <paramref name="buffer"/>, sized as <see cref="GetDataAfterExposure"/>'s is for the window
+        /// and format the stream runs with.
+        /// </summary>
+        /// <remarks>
+        /// This BLOCKS its thread for up to <paramref name="waitMs"/>, as the vendors' own calls do,
+        /// so a caller runs it on a thread of its own rather than a shared pool's.
+        /// <see cref="CMOSErrorCode.Timeout"/> means no frame arrived in the time, which is not a
+        /// failure: the caller asks again.
+        /// </remarks>
+        /// <param name="waitMs">The most to wait, in milliseconds; a frame's exposure plus a margin.</param>
+        CMOSErrorCode GetVideoData(IntPtr buffer, int bufferSize, int waitMs) => CMOSErrorCode.GeneralError;
+
+        /// <summary>
+        /// How many frames the body could not hand over since the stream started, for a USB link or
+        /// a reader too slow for it; false when the SDK keeps no such count.
+        /// </summary>
+        bool TryGetDroppedFrames(out int dropped)
+        {
+            dropped = 0;
+            return false;
+        }
     }
 }

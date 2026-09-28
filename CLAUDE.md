@@ -20,7 +20,7 @@ No test project exists in this repository.
 
 ## Architecture
 
-This is a .NET Standard 2.0 class library defining interfaces and enums only — no concrete classes beyond `NativeDeviceIteratorBase<T>` and the `Common` utility.
+This is a net10.0 class library defining interfaces and enums only — no concrete classes beyond `NativeDeviceIteratorBase<T>` and the `Common` utility.
 
 **Core abstractions (top-down):**
 
