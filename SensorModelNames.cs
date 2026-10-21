@@ -49,6 +49,9 @@ public static class SensorModelNames
         ["qhy533"] = "IMX533",
         ["qhy585"] = "IMX585",
         ["qhy600"] = "IMX455",
+        // SVBONY (the SVBCameraSDK line; its SDK reports no sensor)
+        ["sv605"] = "IMX533", // SV605CC and SV605MC share the die
+        ["sv705"] = "IMX585",
     };
 
     /// <summary>

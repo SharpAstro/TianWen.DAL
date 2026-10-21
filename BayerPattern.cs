@@ -34,9 +34,13 @@ namespace TianWen.DAL
             switch (@this)
             {
                 case BayerPattern.RGGB: return (0, 0);
-                case BayerPattern.BGGR: return (1, 0);
+                // Where RED sits in the 2 x 2 cell: GRBG's top row is G R, so red is at (1, 0); BGGR's is B G over
+                // G R, so (1, 1). These two were swapped until 3.4, so every native GRBG or BGGR camera was read
+                // with red and blue on the wrong photosites (TianWen's BAYERPAT parse, SensorType.cs, has always
+                // said GRBG 1,0 / BGGR 1,1; found connecting a GRBG SVBONY SV605CC, 2026-10-21).
+                case BayerPattern.BGGR: return (1, 1);
                 case BayerPattern.GBRG: return (0, 1);
-                case BayerPattern.GRBG: return (1, 1);
+                case BayerPattern.GRBG: return (1, 0);
                 default:
                     throw new NotSupportedException($"Unknown Bayer pattern {@this}");
             }
