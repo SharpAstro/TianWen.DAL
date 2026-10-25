@@ -26,7 +26,14 @@
         /// </summary>
         WB_G,
         WB_B,
-        Brightness,
+
+        /// <summary>
+        /// The sensor's black level, the pedestal every pixel sits on (what capture programs call the offset): ZWO's
+        /// <c>ASI_BRIGHTNESS</c>, SVBONY's black level, Player One's offset, ToupTek's black level, QHY's
+        /// <c>CONTROL_OFFSET</c>. Named <c>Brightness</c> before 4.0, after ZWO's control, which led QHY's mapping to its
+        /// software image brightness instead.
+        /// </summary>
+        BlackLevel,
         BandwidthOverload,
         Overclock,
         TemperatureDeci,// return 10*temperature
