@@ -126,6 +126,31 @@ namespace TianWen.DAL
         /// </remarks>
         bool HasThreeChannelWhiteBalance => false;
 
+        // ---- Readout mode -------------------------------------------------------------------
+
+        /// <summary>
+        /// The body's readout modes by the vendor's own names, in the vendor's order, so an index into
+        /// this list is the vendor's mode number. Empty when the body has a single readout, which is
+        /// what an implementation that has not been taught modes answers.
+        /// </summary>
+        /// <remarks>
+        /// A mode is not a control: it can change the sensor's GEOMETRY. A QHY294PROC reads out
+        /// 4212 x 2850 at 4.63 um in "11M MODE" and 8432 x 5648 at 2.315 um in "47M MODE", so a caller
+        /// re-reads <see cref="MaxWidth"/>, <see cref="MaxHeight"/>, <see cref="PixelSize"/>, the
+        /// effective and overscan areas and the bins after <see cref="TrySetReadoutMode"/> succeeds.
+        /// </remarks>
+        IReadOnlyList<string> ReadoutModes => Array.Empty<string>();
+
+        /// <summary>The index into <see cref="ReadoutModes"/> the body reads out in, or -1 when it has none.</summary>
+        int ReadoutMode => -1;
+
+        /// <summary>
+        /// Switches the body to readout mode <paramref name="mode"/>, an index into
+        /// <see cref="ReadoutModes"/>. False when the body has no such mode or refused it, leaving the
+        /// mode it had. Never called during an exposure or a stream.
+        /// </summary>
+        bool TrySetReadoutMode(int mode) => false;
+
         // ---- Controls -----------------------------------------------------------------------
 
         double ElectronPerADU { get; }
