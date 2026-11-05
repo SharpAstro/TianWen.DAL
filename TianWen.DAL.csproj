@@ -3,6 +3,7 @@
   <PropertyGroup>
     <TargetFramework>net10.0</TargetFramework>
     <Nullable>enable</Nullable>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <RootNamespace>TianWen.DAL</RootNamespace>
     <AssemblyName>TianWen.DAL</AssemblyName>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
